@@ -8,6 +8,7 @@ import org.hibernate.internal.SessionImpl;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -28,8 +29,8 @@ public class Department {
 //    @Enumerated(EnumType.STRING)
     private String type;
 
-    @Column(name = "create_date")
-    private LocalDate createDate;
+    @Column(name = "created_date")
+    private LocalDateTime createdDate;
 
     @OneToMany(mappedBy = "department")
     private List<Account> accounts;
@@ -41,14 +42,30 @@ public class Department {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public String getName() {
+        return name;
+    }
+
+    public Integer getTotalMember() {
+        return totalMember;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public LocalDateTime getCreateDate() {
+        return createdDate;
     }
 
     @PrePersist
     public void prePersist(){
-        if(createDate == null) createDate = LocalDate.now();
+        if(createdDate == null) createdDate = LocalDateTime.now();
     }
+//    @PreUpdate
+//    public void preUpdate(){
+//        createdDate = this.createdDate;
+//    }
 
     public Department id(Integer id) {
         this.id = id;
@@ -70,8 +87,8 @@ public class Department {
         return this;
     }
 
-    public Department createDate(LocalDate createDate) {
-        this.createDate = createDate;
+    public Department createDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
         return this;
     }
 

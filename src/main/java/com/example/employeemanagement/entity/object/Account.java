@@ -27,7 +27,6 @@ public class Account  {
     private String lastName;
 
     @Column(name = "role", columnDefinition = "employee", nullable = false)
-//    @Enumerated(EnumType.STRING)
     private String role;
 
     @Column(name = "dob")
@@ -36,11 +35,47 @@ public class Account  {
     @Formula("concat(first_name, ' ', last_name)")
     private String fullName;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "department_id", referencedColumnName = "id", nullable = false)
     private Department department;
 
     public Account() {
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public LocalDate getDob() {
+        return dob;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public Department getDepartment() {
+        return department;
     }
 
 

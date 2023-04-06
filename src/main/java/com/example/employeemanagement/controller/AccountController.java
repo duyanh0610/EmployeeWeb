@@ -1,5 +1,6 @@
 package com.example.employeemanagement.controller;
 
+import com.example.employeemanagement.entity.dto.AccountDTO;
 import com.example.employeemanagement.entity.object.Account;
 import com.example.employeemanagement.service.AccountService;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
@@ -10,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value ="api/v1/account")
+@RequestMapping(value ="/api/v1/accounts")
 public class AccountController {
 
     private final AccountService accountService;
@@ -19,29 +20,29 @@ public class AccountController {
         this.accountService = accountService;
     }
 
-    @GetMapping(value = "/all")
-    public ResponseEntity<List<Account>> getAll () {
+    @GetMapping()
+    public ResponseEntity<List<AccountDTO>> getAll () {
         return ResponseEntity.ok().body(accountService.getAll());
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Optional<Account>> getOne(@PathVariable Integer id) {
+    public ResponseEntity<Optional<AccountDTO>> getOne(@PathVariable Integer id) {
         return ResponseEntity.status(200).body(accountService.getOne(id));
     }
 
-    @PostMapping(value = "/new")
-    public ResponseEntity<Account> addAccount(@RequestBody Account account) {
-        return ResponseEntity.status(201).body(accountService.addAccount(account));
+    @PostMapping()
+    public ResponseEntity<AccountDTO> addAccount(@RequestBody Account account) {
+        return ResponseEntity.status(201).body(accountService.create(account));
     }
 
-    @PutMapping(value = "/update/{id}")
-    public ResponseEntity<Account> updateAccount(@RequestBody Account account,
-                                                 @PathVariable Integer id){
-        return ResponseEntity.status(200).body(accountService.updateAccount(account,id));
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<AccountDTO> updateAccount(@RequestBody Account account,
+                                                 @PathVariable Integer id) throws NotFoundException {
+        return ResponseEntity.status(200).body(accountService.update(account,id));
     }
 
-    @DeleteMapping(value = "/delete/{id}")
-    public ResponseEntity<Account> deleteAccount(@PathVariable Integer id) throws NotFoundException {
-        return ResponseEntity.status(200).body(accountService.deleteAccount(id));
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<AccountDTO> deleteAccount(@PathVariable Integer id) throws NotFoundException {
+        return ResponseEntity.status(200).body(accountService.delete(id));
     }
 }

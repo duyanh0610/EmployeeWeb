@@ -1,19 +1,23 @@
 package com.example.employeemanagement.service;
 
+import com.example.employeemanagement.entity.dto.DepartmentDTO;
+import com.example.employeemanagement.entity.object.Account;
 import com.example.employeemanagement.entity.object.Department;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
-@Service
+
 public interface DepartmentService {
-    public List<Department> getAll();
+    public List<DepartmentDTO> getAll();
 
-    public Department getOne(Integer id);
+    public Optional<DepartmentDTO> getOne(Integer id);
 
-    public Department addDepartment(Department account);
+    public DepartmentDTO create(Department department);
 
-    public Department updateDepartment(Department account, Integer id);
+    public DepartmentDTO update(Department department, Integer id) throws ChangeSetPersister.NotFoundException;
 
-    public Department deleteDepartment(Integer id);
+    public DepartmentDTO delete(Integer id) throws ChangeSetPersister.NotFoundException;
 }

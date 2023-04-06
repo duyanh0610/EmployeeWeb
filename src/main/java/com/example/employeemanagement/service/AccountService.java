@@ -1,5 +1,6 @@
 package com.example.employeemanagement.service;
 
+import com.example.employeemanagement.entity.dto.AccountDTO;
 import com.example.employeemanagement.entity.object.Account;
 import org.springframework.data.crossstore.ChangeSetPersister;
 
@@ -9,15 +10,15 @@ import java.util.Optional;
 
 public interface AccountService {
 
-    public List<Account> getAll();
+    public List<AccountDTO> getAll();
 
-    public Optional<Account> getOne(Integer id);
+    public Optional<AccountDTO> getOne(Integer id);
 
-    public Account addAccount(Account account);
+    public AccountDTO create(Account account);
 
-    public Account updateAccount(Account account, Integer id);
+    public AccountDTO update(Account account, Integer id) throws ChangeSetPersister.NotFoundException;
 
-    public Account deleteAccount(Integer id) throws ChangeSetPersister.NotFoundException;
+    public AccountDTO delete(Integer id) throws ChangeSetPersister.NotFoundException;
 
 
 }
