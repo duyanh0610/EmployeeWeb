@@ -1,0 +1,71 @@
+2023-04-07 23:54:57 [restartedMain] INFO  c.e.e.EmployeeManagementApplication                - Starting EmployeeManagementApplication using Java 1.8.0_361 on DuyAnh with PID 14080 (C:\Users\duyan\Desktop\redo\target\classes started by duyanh in C:\Users\duyan\Desktop\redo) 
+2023-04-07 23:54:57 [restartedMain] INFO  c.e.e.EmployeeManagementApplication                - No active profile set, falling back to 1 default profile: "default" 
+2023-04-07 23:54:57 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor    - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable 
+2023-04-07 23:54:57 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor    - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG' 
+2023-04-07 23:54:57 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate          - Bootstrapping Spring Data JPA repositories in DEFAULT mode. 
+2023-04-07 23:54:57 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate          - Finished Spring Data repository scanning in 49 ms. Found 2 JPA repository interfaces. 
+2023-04-07 23:54:58 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer                        - Tomcat initialized with port(s): 8080 (http) 
+2023-04-07 23:54:58 [restartedMain] INFO  o.a.c.h.Http11NioProtocol                          - Initializing ProtocolHandler ["http-nio-8080"] 
+2023-04-07 23:54:58 [restartedMain] INFO  o.a.c.c.StandardService                            - Starting service [Tomcat] 
+2023-04-07 23:54:58 [restartedMain] INFO  o.a.c.c.StandardEngine                             - Starting Servlet engine: [Apache Tomcat/9.0.65] 
+2023-04-07 23:54:58 [restartedMain] INFO  o.a.c.c.C.[.[.[/]                                  - Initializing Spring embedded WebApplicationContext 
+2023-04-07 23:54:58 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext     - Root WebApplicationContext: initialization completed in 1087 ms 
+2023-04-07 23:54:58 [restartedMain] INFO  c.z.h.HikariDataSource                             - HikariPool-1 - Starting... 
+2023-04-07 23:54:58 [restartedMain] INFO  c.z.h.HikariDataSource                             - HikariPool-1 - Start completed. 
+2023-04-07 23:54:58 [restartedMain] INFO  o.h.j.i.u.LogHelper                                - HHH000204: Processing PersistenceUnitInfo [name: default] 
+2023-04-07 23:54:58 [restartedMain] INFO  o.h.Version                                        - HHH000412: Hibernate ORM core version 5.6.10.Final 
+2023-04-07 23:54:58 [restartedMain] INFO  o.h.a.c.Version                                    - HCANN000001: Hibernate Commons Annotations {5.1.2.Final} 
+2023-04-07 23:54:58 [restartedMain] INFO  o.h.d.Dialect                                      - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect 
+2023-04-07 23:54:59 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator                 - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform] 
+2023-04-07 23:54:59 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean     - Initialized JPA EntityManagerFactory for persistence unit 'default' 
+2023-04-07 23:54:59 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning 
+2023-04-07 23:54:59 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter         - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice 
+2023-04-07 23:55:00 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping         - 12 mappings in 'requestMappingHandlerMapping' 
+2023-04-07 23:55:00 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping                  - Patterns [/webjars/**, /**] in 'resourceHandlerMapping' 
+2023-04-07 23:55:00 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver    - ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice 
+2023-04-07 23:55:00 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer                 - LiveReload server is running on port 35729 
+2023-04-07 23:55:00 [restartedMain] INFO  o.a.c.h.Http11NioProtocol                          - Starting ProtocolHandler ["http-nio-8080"] 
+2023-04-07 23:55:00 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer                        - Tomcat started on port(s): 8080 (http) with context path '' 
+2023-04-07 23:55:00 [restartedMain] INFO  c.e.e.EmployeeManagementApplication                - Started EmployeeManagementApplication in 3.668 seconds (JVM running for 4.789) 
+2023-04-07 23:55:11 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[.[.[/]                                  - Initializing Spring DispatcherServlet 'dispatcherServlet' 
+2023-04-07 23:55:11 [http-nio-8080-exec-2] INFO  o.s.w.s.DispatcherServlet                          - Initializing Servlet 'dispatcherServlet' 
+2023-04-07 23:55:11 [http-nio-8080-exec-2] DEBUG o.s.w.s.DispatcherServlet                          - Detected StandardServletMultipartResolver 
+2023-04-07 23:55:11 [http-nio-8080-exec-2] DEBUG o.s.w.s.DispatcherServlet                          - Detected AcceptHeaderLocaleResolver 
+2023-04-07 23:55:11 [http-nio-8080-exec-2] DEBUG o.s.w.s.DispatcherServlet                          - Detected FixedThemeResolver 
+2023-04-07 23:55:11 [http-nio-8080-exec-2] DEBUG o.s.w.s.DispatcherServlet                          - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@b34926b 
+2023-04-07 23:55:11 [http-nio-8080-exec-2] DEBUG o.s.w.s.DispatcherServlet                          - Detected org.springframework.web.servlet.support.SessionFlashMapManager@4f239c96 
+2023-04-07 23:55:11 [http-nio-8080-exec-2] DEBUG o.s.w.s.DispatcherServlet                          - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data 
+2023-04-07 23:55:11 [http-nio-8080-exec-2] INFO  o.s.w.s.DispatcherServlet                          - Completed initialization in 2 ms 
+2023-04-07 23:55:11 [http-nio-8080-exec-2] DEBUG o.s.w.s.DispatcherServlet                          - POST "/api/v1/accounts", parameters={} 
+2023-04-07 23:55:11 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping         - Mapped to com.example.employeemanagement.controller.AccountController#addAccount(AccountCreateForm) 
+2023-04-07 23:55:11 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor   - Read "application/json;charset=UTF-8" to [AccountCreateForm(userName=eeeee, password=$2a$10$W2neF9.6Agi6kAKVq8q3fec5dHW8KUA.b0VSIGdIZyUravfLpy (truncated)...] 
+2023-04-07 23:55:11 [http-nio-8080-exec-2] INFO  c.e.e.c.AccountController                          - POST: add an account with username eeeee 
+2023-04-07 23:55:11 [http-nio-8080-exec-2] DEBUG o.h.SQL                                            - 
+    select
+        department0_.id as id1_1_0_,
+        department0_.created_date as created_2_1_0_,
+        department0_.name as name3_1_0_,
+        department0_.total_member as total_me4_1_0_,
+        department0_.type as type5_1_0_ 
+    from
+        department department0_ 
+    where
+        department0_.id=? 
+2023-04-07 23:55:11 [http-nio-8080-exec-2] TRACE o.h.t.d.s.BasicBinder                              - binding parameter [1] as [INTEGER] - [3] 
+2023-04-07 23:55:11 [http-nio-8080-exec-2] DEBUG o.h.SQL                                            - 
+    insert 
+    into
+        account
+        (department_id, dob, first_name, last_name, password, role, username) 
+    values
+        (?, ?, ?, ?, ?, ?, ?) 
+2023-04-07 23:55:11 [http-nio-8080-exec-2] TRACE o.h.t.d.s.BasicBinder                              - binding parameter [1] as [INTEGER] - [3] 
+2023-04-07 23:55:11 [http-nio-8080-exec-2] TRACE o.h.t.d.s.BasicBinder                              - binding parameter [2] as [DATE] - [null] 
+2023-04-07 23:55:11 [http-nio-8080-exec-2] TRACE o.h.t.d.s.BasicBinder                              - binding parameter [3] as [VARCHAR] - [Vu] 
+2023-04-07 23:55:11 [http-nio-8080-exec-2] TRACE o.h.t.d.s.BasicBinder                              - binding parameter [4] as [VARCHAR] - [Duy Anh] 
+2023-04-07 23:55:11 [http-nio-8080-exec-2] TRACE o.h.t.d.s.BasicBinder                              - binding parameter [5] as [VARCHAR] - [$2a$10$W2neF9.6Agi6kAKVq8q3fec5dHW8KUA.b0VSIGdIZyUravfLpyIFi] 
+2023-04-07 23:55:11 [http-nio-8080-exec-2] TRACE o.h.t.d.s.BasicBinder                              - binding parameter [6] as [VARCHAR] - [employee] 
+2023-04-07 23:55:11 [http-nio-8080-exec-2] TRACE o.h.t.d.s.BasicBinder                              - binding parameter [7] as [VARCHAR] - [eeeee] 
+2023-04-07 23:55:11 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor            - Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/json, application/*+json] 
+2023-04-07 23:55:11 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor            - Writing [AccountDTO(userName=eeeee, password=$2a$10$W2neF9.6Agi6kAKVq8q3fec5dHW8KUA.b0VSIGdIZyUravfLpyIFi, fu (truncated)...] 
+2023-04-07 23:55:11 [http-nio-8080-exec-2] DEBUG o.s.w.s.DispatcherServlet                          - Completed 201 CREATED 

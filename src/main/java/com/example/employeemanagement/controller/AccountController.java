@@ -1,9 +1,14 @@
 package com.example.employeemanagement.controller;
 
 import com.example.employeemanagement.entity.dto.AccountDTO;
-import com.example.employeemanagement.entity.object.Account;
+import com.example.employeemanagement.entity.form.AccountCreateForm;
 import com.example.employeemanagement.service.AccountService;
+import lombok.extern.log4j.Log4j2;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,8 +17,9 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(value ="/api/v1/accounts")
-public class AccountController {
 
+public class AccountController {
+    private final Logger log =LoggerFactory.getLogger(AccountController.class);
     private final AccountService accountService;
 
     public AccountController(AccountService accountService) {
@@ -21,28 +27,34 @@ public class AccountController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<AccountDTO>> getAll () {
-        return ResponseEntity.ok().body(accountService.getAll());
+    public ResponseEntity<Page<AccountDTO>> getAll (Pageable pageable) {
+        log.info("GET: request list accounts");
+        return ResponseEntity.ok().body(accountService.getAll(pageable));
     }
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<Optional<AccountDTO>> getOne(@PathVariable Integer id) {
+        log.info("GET: request an account with id {}", id );
         return ResponseEntity.status(200).body(accountService.getOne(id));
     }
 
     @PostMapping()
-    public ResponseEntity<AccountDTO> addAccount(@RequestBody Account account) {
-        return ResponseEntity.status(201).body(accountService.create(account));
+    public ResponseEntity<AccountDTO> addAccount(@RequestBody AccountCreateForm accountCreateForm) throws NotFoundException {
+        log.info("POST: add an account with username {}", accountCreateForm.getUserName() );
+        return ResponseEntity.status(201).body(accountService.createAccount(accountCreateForm));
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<AccountDTO> updateAccount(@RequestBody Account account,
+    public ResponseEntity<AccountDTO> updateAccount(@RequestBody AccountCreateForm accountCreateForm,
                                                  @PathVariable Integer id) throws NotFoundException {
-        return ResponseEntity.status(200).body(accountService.update(account,id));
+        log.info("PUT: update an account with id {}", id);
+        return ResponseEntity.status(200).body(accountService.updateAccount(accountCreateForm,id));
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<AccountDTO> deleteAccount(@PathVariable Integer id) throws NotFoundException {
-        return ResponseEntity.status(200).body(accountService.delete(id));
+    public void deleteAccount(@PathVariable Integer id) throws NotFoundException {
+        log.info("DELETE: delete an account with id {}", id);
+        accountService.deleteAccount(id);
     }
+
 }

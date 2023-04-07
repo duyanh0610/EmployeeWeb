@@ -1,11 +1,15 @@
 package com.example.employeemanagement.service.impl;
 
 import com.example.employeemanagement.entity.dto.DepartmentDTO;
+import com.example.employeemanagement.entity.form.DepartmentCreateForm;
 import com.example.employeemanagement.entity.object.Department;
 import com.example.employeemanagement.repo.AccountRepository;
 import com.example.employeemanagement.repo.DepartmentRepository;
 import com.example.employeemanagement.service.DepartmentService;
-import org.springframework.data.crossstore.ChangeSetPersister;
+import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,74 +20,70 @@ import java.util.stream.Collectors;
 public class DepartmentServiceImpl implements DepartmentService {
     private final DepartmentRepository departmentRepository;
     private final AccountRepository accountRepository;
-
-    public DepartmentServiceImpl(DepartmentRepository departmentRepository, AccountRepository accountRepository) {
+    private final ModelMapper modelMapper;
+    public DepartmentServiceImpl(DepartmentRepository departmentRepository, AccountRepository accountRepository, ModelMapper modelMapper) {
         this.departmentRepository = departmentRepository;
         this.accountRepository = accountRepository;
+        this.modelMapper = modelMapper;
     }
 
     @Override
-    public List<DepartmentDTO> getAll() {
-        List<DepartmentDTO> departmentDTOS = departmentRepository.findAll()
+    public Page<DepartmentDTO> getAll(Pageable pageable) {
+        Page<Department> departmentPage = departmentRepository.findAll(pageable);
+        List<DepartmentDTO> departmentDTOS = departmentPage.getContent()
                 .stream()
                 .map(department -> {
-                    return new DepartmentDTO()
-                            .name(department.getName())
-                            .totalMember(department.getTotalMember())
-                            .type(department.getType())
-                            .createdDate(department.getCreateDate());
+                    return modelMapper.map(department,DepartmentDTO.class);
+
                 }).collect(Collectors.toList());
-        return departmentDTOS;
+        return new PageImpl<>(departmentDTOS, pageable, departmentPage.getTotalElements());
     }
 
     @Override
     public Optional<DepartmentDTO> getOne(Integer id) {
-        return departmentRepository.findById(id).map(department -> {
-            DepartmentDTO departmentDTO = new DepartmentDTO()
-                    .name(department.getName())
-                    .totalMember(department.getTotalMember())
-                    .type(department.getType())
-                    .createdDate(department.getCreateDate());
-            return departmentDTO;
-        });
+        Optional<Department> department = departmentRepository.findById(id);
+        if(department.isPresent()){
+            return department.map(dept -> {
+                return modelMapper.map(dept, DepartmentDTO.class);
+            });
+        } else {
+            // xử lí exception ở đây
+            return null;
+        }
     }
 
     @Override
-    public DepartmentDTO create(Department department) {
+    public DepartmentDTO createDepartment(DepartmentCreateForm departmentCreateForm) {
+        Department department = modelMapper.map(departmentCreateForm,Department.class);
         departmentRepository.save(department);
-        return new  DepartmentDTO()
-                .name(department.getName())
-                .totalMember(department.getTotalMember())
-                .type(department.getType())
-                .createdDate(department.getCreateDate());
+        return modelMapper.map(department,DepartmentDTO.class);
     }
 
     @Override
-    public DepartmentDTO update(Department department, Integer id) throws ChangeSetPersister.NotFoundException {
-        return departmentRepository.findById(id)
-                .map(dept -> {
-                    department.id(id);
-                    departmentRepository.save(department);
-                    return new DepartmentDTO()
-                            .name(department.getName())
-                            .totalMember(department.getTotalMember())
-                            .type(department.getType())
-                            .createdDate(department.getCreateDate());
-                })
-                .orElseThrow(ChangeSetPersister.NotFoundException::new);
+    public DepartmentDTO updateDepartment(DepartmentCreateForm departmentCreateForm, Integer id) {
+        Optional<Department> department = departmentRepository.findById(id);
+        DepartmentDTO departmentDTO = new DepartmentDTO();
+        if (department.isPresent()) {
+            department.map(dept -> {
+                dept = modelMapper.map(departmentCreateForm,Department.class);
+                dept.id(id);
+                departmentRepository.save(dept);
+                return modelMapper.map(dept,DepartmentDTO.class);
+            });
+        } else {
+            // xử lí exception ở đây
+        }
+        return null;
     }
 
+
     @Override
-    public DepartmentDTO delete(Integer id) throws ChangeSetPersister.NotFoundException {
-        return departmentRepository.findById(id)
-                .map(dept -> {
-                    departmentRepository.deleteById(id);
-                    return new DepartmentDTO()
-                            .name(dept.getName())
-                            .totalMember(dept.getTotalMember())
-                            .type(dept.getType())
-                            .createdDate(dept.getCreateDate());
-                })
-                .orElseThrow(ChangeSetPersister.NotFoundException::new);
+    public void deleteDepartment(Integer id) {
+        Optional<Department> department = departmentRepository.findById(id);
+        if (department.isPresent()) {
+            departmentRepository.deleteById(id);
+        } else {
+            // xử lí exception ở đây
+        }
     }
 }

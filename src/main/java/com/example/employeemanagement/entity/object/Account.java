@@ -78,6 +78,41 @@ public class Account  {
         return department;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public void setDob(LocalDate dob) {
+        this.dob = dob;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
 
     public Account id(Integer id) {
         this.id = id;
@@ -109,7 +144,7 @@ public class Account  {
         return this;
     }
 
-    public Account departmentId(Department department) {
+    public Account department(Department department) {
         this.department = department;
         return this;
     }

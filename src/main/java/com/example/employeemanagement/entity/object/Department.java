@@ -58,6 +58,30 @@ public class Department {
         return createdDate;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setTotalMember(Integer totalMember) {
+        this.totalMember = totalMember;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public void setAccounts(List<Account> accounts) {
+        this.accounts = accounts;
+    }
+
     @PrePersist
     public void prePersist(){
         if(createdDate == null) createdDate = LocalDateTime.now();
@@ -87,7 +111,7 @@ public class Department {
         return this;
     }
 
-    public Department createDate(LocalDateTime createdDate) {
+    public Department createdDate(LocalDateTime createdDate) {
         this.createdDate = createdDate;
         return this;
     }
