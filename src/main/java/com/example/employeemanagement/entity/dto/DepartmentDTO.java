@@ -13,8 +13,9 @@ public class DepartmentDTO {
     private String name;
     private Integer totalMember;
     private String type;
-    @JsonFormat(pattern = "dd-MM-yyyy")
+    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime createdDate;
+    private List<AccountDTO> accounts;
 
     public void setName(String name) {
         this.name = name;
@@ -48,6 +49,14 @@ public class DepartmentDTO {
         return createdDate;
     }
 
+    public List<AccountDTO> getAccounts() {
+        return accounts;
+    }
+
+    public void setAccounts(List<AccountDTO> accounts) {
+        this.accounts = accounts;
+    }
+
     public DepartmentDTO name(String name) {
         this.name = name;
         return this;
@@ -65,6 +74,11 @@ public class DepartmentDTO {
 
     public DepartmentDTO createdDate(LocalDateTime createdDate) {
         this.createdDate = createdDate;
+        return this;
+    }
+
+    public DepartmentDTO accounts(List<AccountDTO> accounts) {
+        this.accounts = accounts;
         return this;
     }
 }

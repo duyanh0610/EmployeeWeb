@@ -1,18 +1,18 @@
 package com.example.employeemanagement.service.impl;
 
 import com.example.employeemanagement.entity.dto.AccountDTO;
-import com.example.employeemanagement.entity.form.AccountCreateForm;
+import com.example.employeemanagement.entity.form.create.AccountCreateForm;
 import com.example.employeemanagement.entity.object.Account;
 import com.example.employeemanagement.entity.object.Department;
 import com.example.employeemanagement.repo.AccountRepository;
 import com.example.employeemanagement.repo.DepartmentRepository;
 import com.example.employeemanagement.service.AccountService;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,6 +31,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @Transactional(rollbackFor = {Exception.class, Throwable.class})
     public Page<AccountDTO> getAll(Pageable pageable) {
         Page<Account> accountPage = accountRepository.findAll(pageable);
         List<AccountDTO> accounts = accountPage.getContent()
@@ -50,6 +51,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @Transactional(rollbackFor = {Exception.class, Throwable.class})
     public Optional<AccountDTO> getOne(Integer id) {
         Optional<Account> account = accountRepository.findById(id);
         if (account.isPresent()) {
@@ -71,6 +73,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @Transactional(rollbackFor = {Exception.class, Throwable.class})
     public AccountDTO createAccount(AccountCreateForm accountCreateForm) {
         Optional<Department> department = departmentRepository.findById(accountCreateForm.getDepartmentId());
         Account account = modelMapper.map(accountCreateForm,Account.class).id(null);
@@ -80,10 +83,11 @@ public class AccountServiceImpl implements AccountService {
         } else {
             // xử lí exception ở đây
         }
-        return modelMapper.map(account, AccountDTO.class);
+        return modelMapper.map(account, AccountDTO.class).fullName(account.getLastName()+ " " + account.getFirstName());
     }
 
     @Override
+    @Transactional(rollbackFor = {Exception.class, Throwable.class})
     public AccountDTO updateAccount(AccountCreateForm accountCreateForm, Integer id) {
         Optional<Account> account = accountRepository.findById(id);
         Optional<Department> department = departmentRepository.findById(accountCreateForm.getDepartmentId());
@@ -96,7 +100,7 @@ public class AccountServiceImpl implements AccountService {
                     // xử lí exception ở đây
                 }
                 accountRepository.save(acc);
-                return modelMapper.map(acc, AccountDTO.class);
+                return modelMapper.map(acc, AccountDTO.class).fullName(acc.getLastName()+ " " + acc.getFirstName());
             });
         } else {
             // xử lí exception ở đây
@@ -106,6 +110,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @Transactional(rollbackFor = {Exception.class, Throwable.class})
     public void deleteAccount(Integer id) {
         Optional<Account> account = accountRepository.findById(id);
         if (account.isPresent()) {

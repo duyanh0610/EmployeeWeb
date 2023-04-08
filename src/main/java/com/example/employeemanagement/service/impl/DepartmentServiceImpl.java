@@ -1,7 +1,9 @@
 package com.example.employeemanagement.service.impl;
 
+import com.example.employeemanagement.entity.dto.AccountDTO;
 import com.example.employeemanagement.entity.dto.DepartmentDTO;
-import com.example.employeemanagement.entity.form.DepartmentCreateForm;
+import com.example.employeemanagement.entity.form.create.DepartmentCreateForm;
+import com.example.employeemanagement.entity.object.Account;
 import com.example.employeemanagement.entity.object.Department;
 import com.example.employeemanagement.repo.AccountRepository;
 import com.example.employeemanagement.repo.DepartmentRepository;
@@ -11,7 +13,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -28,6 +32,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
+    @Transactional(rollbackFor = {Exception.class, Throwable.class})
     public Page<DepartmentDTO> getAll(Pageable pageable) {
         Page<Department> departmentPage = departmentRepository.findAll(pageable);
         List<DepartmentDTO> departmentDTOS = departmentPage.getContent()
@@ -40,11 +45,12 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
+    @Transactional(rollbackFor = {Exception.class, Throwable.class})
     public Optional<DepartmentDTO> getOne(Integer id) {
         Optional<Department> department = departmentRepository.findById(id);
         if(department.isPresent()){
             return department.map(dept -> {
-                return modelMapper.map(dept, DepartmentDTO.class);
+                return modelMapper.map(dept, DepartmentDTO.class).createdDate(dept.getCreatedDate());
             });
         } else {
             // xử lí exception ở đây
@@ -53,23 +59,51 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
+    @Transactional(rollbackFor = {Exception.class, Throwable.class})
     public DepartmentDTO createDepartment(DepartmentCreateForm departmentCreateForm) {
         Department department = modelMapper.map(departmentCreateForm,Department.class);
         departmentRepository.save(department);
-        return modelMapper.map(department,DepartmentDTO.class);
+
+        List<String> accountUserName = departmentCreateForm.getAccountUserName();
+        List<AccountDTO> accountDTOS = new ArrayList<>();
+        if(accountUserName!= null && accountUserName.size() > 0){
+            for (String username: accountUserName) {
+                Account account = accountRepository.findAccountByUserName(username);
+                account.setDepartment(department);
+                accountRepository.save(account);
+                accountDTOS.add(modelMapper.map(account,AccountDTO.class));
+
+            }
+        }
+
+        return modelMapper.map(department,DepartmentDTO.class).createdDate(department.getCreatedDate()).accounts(accountDTOS);
     }
 
     @Override
+    @Transactional(rollbackFor = {Exception.class, Throwable.class})
     public DepartmentDTO updateDepartment(DepartmentCreateForm departmentCreateForm, Integer id) {
-        Optional<Department> department = departmentRepository.findById(id);
+        Department department = departmentRepository.findById(id).get();
         DepartmentDTO departmentDTO = new DepartmentDTO();
-        if (department.isPresent()) {
-            department.map(dept -> {
-                dept = modelMapper.map(departmentCreateForm,Department.class);
-                dept.id(id);
-                departmentRepository.save(dept);
-                return modelMapper.map(dept,DepartmentDTO.class);
-            });
+        departmentCreateForm.setCreatedDate(department.getCreatedDate());
+        if (department != null) {
+            department = modelMapper.map(departmentCreateForm,Department.class);
+            department.id(id);
+
+            departmentRepository.save(department);
+
+            List<String> accountUserName = departmentCreateForm.getAccountUserName();
+            List<AccountDTO> accountDTOS = new ArrayList<>();
+            if(accountUserName!= null && accountUserName.size() > 0){
+                for (String username: accountUserName) {
+                    Account account = accountRepository.findAccountByUserName(username);
+                    account.setDepartment(department);
+                    accountRepository.save(account);
+                    accountDTOS.add(modelMapper.map(account,AccountDTO.class));
+
+                }
+            }
+            return modelMapper.map(department,DepartmentDTO.class).createdDate(department.getCreatedDate()).accounts(accountDTOS);
+
         } else {
             // xử lí exception ở đây
         }
@@ -78,6 +112,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
 
     @Override
+    @Transactional(rollbackFor = {Exception.class, Throwable.class})
     public void deleteDepartment(Integer id) {
         Optional<Department> department = departmentRepository.findById(id);
         if (department.isPresent()) {

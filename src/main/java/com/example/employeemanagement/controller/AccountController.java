@@ -1,23 +1,23 @@
 package com.example.employeemanagement.controller;
 
 import com.example.employeemanagement.entity.dto.AccountDTO;
-import com.example.employeemanagement.entity.form.AccountCreateForm;
+import com.example.employeemanagement.entity.form.create.AccountCreateForm;
 import com.example.employeemanagement.service.AccountService;
-import lombok.extern.log4j.Log4j2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
 @RequestMapping(value ="/api/v1/accounts")
-
+@Validated
 public class AccountController {
     private final Logger log =LoggerFactory.getLogger(AccountController.class);
     private final AccountService accountService;
@@ -39,13 +39,13 @@ public class AccountController {
     }
 
     @PostMapping()
-    public ResponseEntity<AccountDTO> addAccount(@RequestBody AccountCreateForm accountCreateForm) throws NotFoundException {
+    public ResponseEntity<AccountDTO> addAccount(@RequestBody @Valid AccountCreateForm accountCreateForm) {
         log.info("POST: add an account with username {}", accountCreateForm.getUserName() );
         return ResponseEntity.status(201).body(accountService.createAccount(accountCreateForm));
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<AccountDTO> updateAccount(@RequestBody AccountCreateForm accountCreateForm,
+    public ResponseEntity<AccountDTO> updateAccount(@RequestBody @Valid AccountCreateForm accountCreateForm,
                                                  @PathVariable Integer id) throws NotFoundException {
         log.info("PUT: update an account with id {}", id);
         return ResponseEntity.status(200).body(accountService.updateAccount(accountCreateForm,id));

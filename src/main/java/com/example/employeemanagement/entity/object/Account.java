@@ -29,8 +29,8 @@ public class Account  {
     @Column(name = "role", columnDefinition = "employee", nullable = false)
     private String role;
 
-    @Column(name = "dob")
-    private LocalDate dob;
+//    @Column(name = "dob")
+//    private LocalDate dob;
 
     @Formula("concat(first_name, ' ', last_name)")
     private String fullName;
@@ -66,9 +66,6 @@ public class Account  {
         return role;
     }
 
-    public LocalDate getDob() {
-        return dob;
-    }
 
     public String getFullName() {
         return fullName;
@@ -102,9 +99,6 @@ public class Account  {
         this.role = role;
     }
 
-    public void setDob(LocalDate dob) {
-        this.dob = dob;
-    }
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
@@ -149,10 +143,6 @@ public class Account  {
         return this;
     }
 
-    public Account dob(LocalDate dob) {
-        this.dob = dob;
-        return this;
-    }
 
     public Account fullName(String fullName) {
         this.fullName = fullName;
@@ -164,7 +154,6 @@ public class Account  {
         return "Account{" +
                 "userName='" + userName + '\'' +
                 ", role='" + role + '\'' +
-                ", dob=" + dob +
                 ", fullName='" + fullName + '\'' +
                 '}';
     }

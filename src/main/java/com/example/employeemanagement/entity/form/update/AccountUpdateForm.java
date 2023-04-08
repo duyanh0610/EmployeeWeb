@@ -1,11 +1,6 @@
-package com.example.employeemanagement.entity.form;
+package com.example.employeemanagement.entity.form.update;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@Data
-@NoArgsConstructor
-public class AccountCreateForm {
+public class AccountUpdateForm {
     private String userName;
     private String password;
     private String firstName;
