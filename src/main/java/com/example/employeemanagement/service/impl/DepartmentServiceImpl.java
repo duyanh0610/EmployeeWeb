@@ -41,6 +41,7 @@ public class DepartmentServiceImpl implements DepartmentService {
                     return modelMapper.map(department,DepartmentDTO.class);
 
                 }).collect(Collectors.toList());
+
         return new PageImpl<>(departmentDTOS, pageable, departmentPage.getTotalElements());
     }
 

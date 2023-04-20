@@ -4,6 +4,7 @@ import com.example.employeemanagement.entity.dto.AccountDTO;
 import com.example.employeemanagement.entity.form.create.AccountCreateForm;
 import com.example.employeemanagement.entity.object.Account;
 import com.example.employeemanagement.entity.object.Department;
+import com.example.employeemanagement.exception.errors.UserNotFoundException;
 import com.example.employeemanagement.repo.AccountRepository;
 import com.example.employeemanagement.repo.DepartmentRepository;
 import com.example.employeemanagement.service.AccountService;
@@ -47,6 +48,9 @@ public class AccountServiceImpl implements AccountService {
 //                            .departmentName(account.getDepartment().getName());
 //                    return accountDTO;
                 }).collect(Collectors.toList());
+        if(accounts.size() == 0){
+            throw new UserNotFoundException("No user found");
+        }
         return new PageImpl<>(accounts, pageable, accountPage.getTotalElements());
     }
 
@@ -67,8 +71,7 @@ public class AccountServiceImpl implements AccountService {
 //                return accountDTO;
             });
         } else {
-            // xử lí exception ở đây
-            return null;
+            throw new UserNotFoundException("No user found");
         }
     }
 

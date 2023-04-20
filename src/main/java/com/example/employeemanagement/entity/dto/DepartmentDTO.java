@@ -3,13 +3,14 @@ package com.example.employeemanagement.entity.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
 @NoArgsConstructor
-public class DepartmentDTO {
+public class DepartmentDTO extends RepresentationModel<DepartmentDTO> {
     private String name;
     private Integer totalMember;
     private String type;
