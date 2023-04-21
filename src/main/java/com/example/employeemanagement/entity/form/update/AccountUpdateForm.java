@@ -1,19 +1,19 @@
 package com.example.employeemanagement.entity.form.update;
 
 public class AccountUpdateForm {
-    private String userName;
+    private String username;
     private String password;
     private String firstName;
     private String lastName;
     private String role;
     private Integer departmentId;
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {

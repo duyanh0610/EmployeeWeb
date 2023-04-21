@@ -40,7 +40,7 @@ public class AccountController {
 
     @PostMapping()
     public ResponseEntity<AccountDTO> addAccount(@RequestBody @Valid AccountCreateForm accountCreateForm) {
-        log.info("POST: add an account with username {}", accountCreateForm.getUserName() );
+        log.info("POST: add an account with username {}", accountCreateForm.getUsername() );
         return ResponseEntity.status(201).body(accountService.createAccount(accountCreateForm));
     }
 

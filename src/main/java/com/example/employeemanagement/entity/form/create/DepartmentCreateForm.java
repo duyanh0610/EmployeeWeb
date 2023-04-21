@@ -16,7 +16,7 @@ public class DepartmentCreateForm {
     @NotNull(message = "type can not be null")
     private String type;
     private LocalDateTime createdDate;
-    private List<String> accountUserName;
+    private List<String> accountUsername;
 
     public String getName() {
         return name;
@@ -50,11 +50,11 @@ public class DepartmentCreateForm {
         this.createdDate = createdDate;
     }
 
-    public List<String> getAccountUserName() {
-        return accountUserName;
+    public List<String> getAccountUsername() {
+        return accountUsername;
     }
 
-    public void setAccountUserName(List<String> userNames) {
-        this.accountUserName = userNames;
+    public void setAccountUsername(List<String> usernames) {
+        this.accountUsername = usernames;
     }
 }

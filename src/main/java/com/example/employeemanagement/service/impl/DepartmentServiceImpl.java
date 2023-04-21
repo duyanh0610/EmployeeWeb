@@ -65,10 +65,10 @@ public class DepartmentServiceImpl implements DepartmentService {
         Department department = modelMapper.map(departmentCreateForm,Department.class);
         departmentRepository.save(department);
 
-        List<String> accountUserName = departmentCreateForm.getAccountUserName();
+        List<String> accountUsername = departmentCreateForm.getAccountUsername();
         List<AccountDTO> accountDTOS = new ArrayList<>();
-        if(accountUserName!= null && accountUserName.size() > 0){
-            for (String username: accountUserName) {
+        if(accountUsername!= null && accountUsername.size() > 0){
+            for (String username: accountUsername) {
                 Account account = accountRepository.findAccountByUserName(username);
                 account.setDepartment(department);
                 accountRepository.save(account);
@@ -92,10 +92,10 @@ public class DepartmentServiceImpl implements DepartmentService {
 
             departmentRepository.save(department);
 
-            List<String> accountUserName = departmentCreateForm.getAccountUserName();
+            List<String> accountUsername = departmentCreateForm.getAccountUsername();
             List<AccountDTO> accountDTOS = new ArrayList<>();
-            if(accountUserName!= null && accountUserName.size() > 0){
-                for (String username: accountUserName) {
+            if(accountUsername!= null && accountUsername.size() > 0){
+                for (String username: accountUsername) {
                     Account account = accountRepository.findAccountByUserName(username);
                     account.setDepartment(department);
                     accountRepository.save(account);

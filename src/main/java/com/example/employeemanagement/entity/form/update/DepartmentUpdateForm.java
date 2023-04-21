@@ -8,7 +8,7 @@ public class DepartmentUpdateForm {
     private Integer totalMember;
     private String type;
     private LocalDateTime createdDate;
-    private List<String> accountUserName;
+    private List<String> accountUsername;
 
     public String getName() {
         return name;
@@ -42,11 +42,11 @@ public class DepartmentUpdateForm {
         this.createdDate = createdDate;
     }
 
-    public List<String> getAccountUserName() {
-        return accountUserName;
+    public List<String> getAccountUsername() {
+        return accountUsername;
     }
 
     public void setAccountUserName(List<String> userNames) {
-        this.accountUserName = userNames;
+        this.accountUsername = userNames;
     }
 }

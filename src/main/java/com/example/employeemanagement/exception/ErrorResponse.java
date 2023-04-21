@@ -1,9 +1,8 @@
-package com.example.employeemanagement.exception.errors;
+package com.example.employeemanagement.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.http.HttpStatus;
 
 
 @Data
@@ -12,6 +11,7 @@ import org.springframework.http.HttpStatus;
 public class ErrorResponse {
     private String code;
     private int status;
+    private Object errors;
     private String errorMessage;
     private String detailMessage;
 
@@ -33,6 +33,11 @@ public class ErrorResponse {
 
     public ErrorResponse detailMessage(String detailMessage) {
         this.detailMessage = detailMessage;
+        return this;
+    }
+
+    public ErrorResponse errors(Object errors) {
+        this.errors = errors;
         return this;
     }
 }

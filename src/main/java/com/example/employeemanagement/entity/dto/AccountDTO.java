@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AccountDTO {
 
-    private String userName;
+    private String username;
     @JsonIgnore
     private String password;
     private String fullName;
@@ -19,8 +19,8 @@ public class AccountDTO {
     @JsonProperty("department name")
     private String departmentName;
 
-    public AccountDTO(String userName, String password, String fullName, String role, Integer departmentId, String departmentName) {
-        this.userName = userName;
+    public AccountDTO(String username, String password, String fullName, String role, Integer departmentId, String departmentName) {
+        this.username = username;
         this.password = password;
         this.fullName = fullName;
         this.role = role;
@@ -28,8 +28,8 @@ public class AccountDTO {
         this.departmentName = departmentName;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
     public String getPassword() {
@@ -52,8 +52,8 @@ public class AccountDTO {
         return departmentName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public void setPassword(String password) {
@@ -77,8 +77,8 @@ public class AccountDTO {
     }
 
 
-    public AccountDTO userName(String userName) {
-        this.userName = userName;
+    public AccountDTO username(String username) {
+        this.username = username;
         return this;
     }
 
