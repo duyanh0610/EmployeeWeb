@@ -12,6 +12,10 @@ import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -121,5 +125,39 @@ public class AccountServiceImpl implements AccountService {
         } else {
 
         }
+    }
+
+    @Override
+    public Optional<AccountDTO> getAccountByUsername(String username) {
+        Optional<Account> account = accountRepository.findAccountByUserName(username);
+        if (account.isPresent()) {
+            return account.map(acc -> {
+                return modelMapper.map(acc, AccountDTO.class);
+//                AccountDTO accountDTO = new AccountDTO()
+//                        .userName(acc.getUserName())
+//                        .password(acc.getPassword())
+//                        .fullName(acc.getFullName())
+//                        .role(acc.getRole())
+//                        .departmentId(acc.getDepartment().getId())
+//                        .departmentName(acc.getDepartment().getName());
+//                return accountDTO;
+            });
+        } else {
+            throw new CustomException("No user found");
+        }
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        if(username == null){
+            throw new CustomException("username not valid");
+        }
+        AccountDTO accountDTO = getAccountByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException(username));
+        return new User(
+                accountDTO.getUsername(),
+                accountDTO.getPassword(),
+                AuthorityUtils.createAuthorityList(accountDTO.getRole()));
+
     }
 }

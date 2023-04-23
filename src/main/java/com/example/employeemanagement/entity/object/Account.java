@@ -15,7 +15,7 @@ public class Account  {
     private Integer id;
 
     @Column(name = "username", unique = true, nullable = false, length = 50)
-    private String userName;
+    private String username;
 
     @Column(name = "password", unique = true, nullable = false, length = 50)
     private String password;
@@ -46,8 +46,8 @@ public class Account  {
         return id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
     public String getPassword() {
@@ -79,8 +79,8 @@ public class Account  {
         this.id = id;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String userName) {
+        this.username = userName;
     }
 
     public void setPassword(String password) {
@@ -113,8 +113,8 @@ public class Account  {
         return this;
     }
 
-    public Account userName(String userName) {
-        this.userName = userName;
+    public Account username(String username) {
+        this.username = username;
         return this;
     }
 
@@ -152,7 +152,7 @@ public class Account  {
     @Override
     public String toString() {
         return "Account{" +
-                "userName='" + userName + '\'' +
+                "userName='" + username + '\'' +
                 ", role='" + role + '\'' +
                 ", fullName='" + fullName + '\'' +
                 '}';

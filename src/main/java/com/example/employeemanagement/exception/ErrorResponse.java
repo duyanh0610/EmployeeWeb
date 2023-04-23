@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ErrorResponse {
+    private String timeStamp;
     private String code;
     private int status;
     private Object errors;
@@ -40,4 +41,11 @@ public class ErrorResponse {
         this.errors = errors;
         return this;
     }
+
+    public ErrorResponse timeStamp(String timeStamp) {
+        this.timeStamp = timeStamp;
+        return this;
+    }
+
+
 }

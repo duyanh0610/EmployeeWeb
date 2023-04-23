@@ -5,8 +5,8 @@ import org.springframework.util.StringUtils;
 
 public class test {
     public static void main(String[] args) {
-        String s = "";
+        String s = "    ";
 
-        System.out.println(Strings.isEmpty(s));
+        System.out.println(Strings.isBlank(s));
     }
 }

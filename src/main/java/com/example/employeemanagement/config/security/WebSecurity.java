@@ -1,8 +1,11 @@
 package com.example.employeemanagement.config.security;
 
-import com.example.employeemanagement.service.AuthService;
+import com.example.employeemanagement.entity.common.Constants;
+import com.example.employeemanagement.exception.AuthExceptionHandler;
+import com.example.employeemanagement.service.AccountService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -12,20 +15,21 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurity extends WebSecurityConfigurerAdapter {
-    private final AuthService authService;
+    private final AccountService accountService;
+    private final AuthExceptionHandler authExceptionHandler;
 
 
-    public WebSecurity(AuthService authService) {
-        this.authService = authService;
+    public WebSecurity(AccountService accountService, AuthExceptionHandler authExceptionHandler) {
+        this.accountService = accountService;
+        this.authExceptionHandler = authExceptionHandler;
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
@@ -34,9 +38,10 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(authService).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(accountService).passwordEncoder(bCryptPasswordEncoder());
     }
 
     @Override
@@ -44,16 +49,22 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         http
                 .cors()
                 .and()
+                .exceptionHandling()
+                    .accessDeniedHandler(authExceptionHandler)
+                    .authenticationEntryPoint(authExceptionHandler)
+                .and()
                 .authorizeRequests()
-                    .anyRequest()
-                    .authenticated()
+                    .antMatchers("/api/v1/accounts").hasAnyAuthority(Constants.ROLE.ADMIN)
+                    .antMatchers("api/v1/departments").hasAnyAuthority(Constants.ROLE.ADMIN)
+                    .antMatchers(HttpMethod.GET,"api/v1/departments").hasAnyAuthority(Constants.ROLE.EMPLOYEE)
+    //                .antMatchers("/api/v1/accounts/**")
+    //                .permitAll()
+                .anyRequest().authenticated()
                 .and()
                 .httpBasic()
                 .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .csrf()
-                .disable();
+                .csrf().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 }
 
