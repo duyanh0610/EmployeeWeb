@@ -12,6 +12,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -69,7 +70,7 @@ public class DepartmentServiceImpl implements DepartmentService {
         List<AccountDTO> accountDTOS = new ArrayList<>();
         if(accountUsername!= null && accountUsername.size() > 0){
             for (String username: accountUsername) {
-                Account account = accountRepository.findAccountByUserName(username);
+                Account account = accountRepository.findAccountByUserName(username).orElseThrow(() -> new UsernameNotFoundException(username));
                 account.setDepartment(department);
                 accountRepository.save(account);
                 accountDTOS.add(modelMapper.map(account,AccountDTO.class));
@@ -96,7 +97,7 @@ public class DepartmentServiceImpl implements DepartmentService {
             List<AccountDTO> accountDTOS = new ArrayList<>();
             if(accountUsername!= null && accountUsername.size() > 0){
                 for (String username: accountUsername) {
-                    Account account = accountRepository.findAccountByUserName(username);
+                    Account account = accountRepository.findAccountByUserName(username).orElseThrow(() -> new UsernameNotFoundException(username));
                     account.setDepartment(department);
                     accountRepository.save(account);
                     accountDTOS.add(modelMapper.map(account,AccountDTO.class));
