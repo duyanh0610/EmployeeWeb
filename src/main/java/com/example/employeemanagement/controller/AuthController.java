@@ -21,6 +21,9 @@ public class AuthController {
         this.loginRegisterService = loginRegisterService;
     }
 
+//    @PostMapping(value="/login/auth2/google")
+//    @PostMapping(value="/login/auth2/facebook")
+
 
     @PostMapping(value="/login")
     public ResponseEntity<Optional<AuthInfoDTO>> login(@RequestBody LoginRequest loginRequest){
